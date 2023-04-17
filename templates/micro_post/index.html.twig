@@ -28,6 +28,9 @@
                         user@email.com
                     </a>
                 </div>
+                <div>
+                    <a href="{{ path('app_micro_post_edit', {post: post.id}) }}">Edit</a>
+                </div>
             </div>
         {% endfor %}
     {% else %}
