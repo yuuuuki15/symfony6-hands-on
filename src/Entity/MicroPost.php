@@ -29,7 +29,7 @@ class MicroPost
     #[ORM\Column(type: 'datetime')]
     private $created;
 
-    #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class, orphanRemoval: true, cascade: ['persist'])]
     private Collection $comments;
 
     public function __construct()
