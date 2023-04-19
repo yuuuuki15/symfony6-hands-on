@@ -2,13 +2,21 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\MicroPost;
 use DateTime;
+use App\Entity\User;
+use App\Entity\MicroPost;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+    public function __construct(
+        private UserPasswordHasherInterface $userPasswordHasher
+    ){
+        
+    }
+
     public function load(ObjectManager $manager): void
     {
         $microPost1 = new MicroPost();
@@ -28,6 +36,26 @@ class AppFixtures extends Fixture
         $microPost3->setText('Welcome to Germany1');
         $microPost3->setCreated(new DateTime());
         $manager->persist($microPost3);
+
+        $user1 = new User();
+        $user1->setEmail('test@test.com');
+        $user1->setPassword(
+            $this->userPasswordHasher->hashPassword(
+                $user1,
+                '12345678'
+            )
+        );
+        $manager->persist($user1);
+
+        $user2 = new User();
+        $user2->setEmail('john@test.com');
+        $user2->setPassword(
+            $this->userPasswordHasher->hashPassword(
+                $user2,
+                '12345678'
+            )
+        );
+        $manager->persist($user2);
 
         $manager->flush();
     }
