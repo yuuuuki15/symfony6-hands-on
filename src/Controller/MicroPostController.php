@@ -53,7 +53,6 @@ class MicroPostController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             $post = $form->getData();
-            $post->setCreated(new DateTime());
             $post->setAuthor($this->getUser());
             $posts->save($post, true);
 
@@ -75,7 +74,7 @@ class MicroPostController extends AbstractController
         '/micro-post/{post}/edit',
         name: 'app_micro_post_edit'
     )]
-    #[IsGranted('ROLE_EDITOR')]
+    // #[IsGranted('ROLE_EDITOR')]
     public function edit(MicroPost $post, Request $request, MicroPostRepository $posts): Response
     {
         $form = $this->createForm(MicroPostType::class, $post);
@@ -104,7 +103,7 @@ class MicroPostController extends AbstractController
         '/micro-post/{post}/comment',
         name: 'app_micro_post_comment'
     )]
-    #[IsGranted('ROLE_COMMENTER')]
+    // #[IsGranted('ROLE_COMMENTER')]
     public function addComment(MicroPost $post,Request $request, CommentRepository $comments): Response
     {
         $form = $this->createForm(CommentType::class, new Comment());
