@@ -16,7 +16,7 @@
         </a>
     </div>
     <div class="text-sm text-gray-500 dark:text-gray-400">
-        <a href="#">
+        <a href="{{ path('app_profile', {id: post.author.id}) }}">
             {{ post.author.email }}
         </a>
     </div>
